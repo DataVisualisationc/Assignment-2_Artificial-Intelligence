@@ -8,7 +8,7 @@ I have created a parser code that will parse the input files **Map.txt** and mak
 That means you guys **don't have to worry about how to parse/process the raw data**, all you guys need to do is understand which variables and methods from library and inside the parser code are usable in your algorithm
 For example, start_node, goals,G.neighbour, G.successors
 
-Library used networkx (for data structures) , matplotlib (for drawing)
+Library used: networkx (for data structures) , matplotlib (for drawing)
 
 # How to test the parser file?
 ## 1 Install networkx and matlib Library
