@@ -188,11 +188,6 @@ def GreedyBFS():
             if n not in expanded and n not in frontier:
                 frontier.append(n) 
                 predecessor[n] = current 
-
-        
-    
-                    
-
     return
 
 
@@ -207,11 +202,12 @@ def show_plot():
 
 
 
-
-
 # CLI execution
 if method_name == "show":
     show_plot()
+    plt.ioff() 
+    plt.show() 
+
 elif method_name == "BFS":
     BFS()
     show_plot()
