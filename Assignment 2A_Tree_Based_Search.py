@@ -88,17 +88,21 @@ for node in G.nodes():
 # print(f"Path: {path}")
 # print(f"Path Cost: {path_cost}")
 
+
+
 def BFS():
     return
 
 def DFS():
     return
 
+def A_StarSearch():
+    return
+
+
 def GreedyBFS():
     predecessor = {} #storing predecessor nodes so can access later
     path_cost = 0
-
-
 
     plt.ion() # interactive mode :ON
     #heuristic = straightline distance
@@ -191,11 +195,6 @@ def GreedyBFS():
                     
 
     return
-
-def A_StarSearch():
-    return
-
-
 
 
 #Show drawing
