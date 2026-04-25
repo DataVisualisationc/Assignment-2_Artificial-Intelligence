@@ -150,8 +150,7 @@ def GreedyBFS():
             nodes_created = len(frontier) + len(expanded) 
 
 
-            node = goal
-            path_cost = 0
+           
 
             path = []
             node = goal
@@ -167,11 +166,11 @@ def GreedyBFS():
 
             path_str = " -> ".join(path)
 
-
+            node = goal     #re-initialize because it resets and can backtrack again
             # adding path cost together
             while node != start_node:
                 parent = predecessor[node]
-                path_cost += int(G[parent][node]['weight'])
+                path_cost = path_cost + int(G[parent][node]['weight'])
                 node = parent
 
 
@@ -190,7 +189,7 @@ def GreedyBFS():
                 frontier.append(n) 
                 predecessor[n] = current 
 
-        previous = current
+        
     
                     
 
