@@ -20,7 +20,7 @@ with open(file_name, "r") as f:
 start_node = None
 goals = []
 pos = {}      # coordinates
-graph = {}      # adjacency list
+
 
 # STEP 3: Parse file
 for line in cleaned_lines:
