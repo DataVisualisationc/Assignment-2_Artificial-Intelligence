@@ -1,12 +1,14 @@
 # Assignment 2A_Tree Based Search
 
-## Python parser code
+## Python parser code (Test)
 Since the lecturer wants us to execute the file by command prompt 
 C:\Assignments> python <file.python> <filename> <method> 
 
 I have created a parser code that will parse the input files **Map.txt** and make it into a graph,
-That means you guys **don't have to worry about how to parse/process the raw data**, all you guys need to do is understand which variables and methods from library and inside the parser code are usable in your algorithm
+That means you guys **don't have to worry about how to parse/process the raw data**, all you guys need to do is understand which variables and methods from library and inside the parser code are usable in your algorithm.
 For example, start_node, goals,G.neighbour, G.successors
+
+_The parser.py is made for test only._
 
 Library used: networkx (for data structures) , matplotlib (for drawing)
 
