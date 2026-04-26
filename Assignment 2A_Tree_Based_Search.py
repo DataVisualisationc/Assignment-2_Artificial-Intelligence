@@ -97,7 +97,88 @@ def DFS():
     return
 
 def A_StarSearch():
-    return
+    predecessor = {} 
+    path_cost = 0
+    plt.ion() 
+
+    for node in pos:
+        x1, y1 = pos[node]
+        min_dist = float('inf')
+        for g in goals:
+            x2, y2 = pos[g]
+            dist = math.sqrt((x1-x2)**2 + (y1-y2)**2)
+            if dist < min_dist:
+                min_dist = dist
+        G.nodes[node]["heuristic"] = min_dist
+
+    frontier = [(G.nodes[start_node]["heuristic"], start_node)]
+    expanded = []
+    g_cost = {start_node: 0}
+
+    while frontier:
+        frontier.sort(key=lambda x: x[0])
+        f_current, current = frontier.pop(0)
+
+        if current in expanded:
+            continue
+        expanded.append(current)
+
+        node_list = list(G.nodes())
+
+        for n, _ in frontier:
+            idx = node_list.index(n)
+            node_colors[idx] = "grey"
+
+        for n in expanded:
+            idx = node_list.index(n)
+            if n in goals:
+                node_colors[idx] = "orange"
+            else:
+                node_colors[idx] = "red"
+
+        show_plot()
+
+        if current in goals:
+            plt.ioff()
+            plt.show()
+            nodes_created = len(frontier) + len (expanded)
+
+            path = []
+            node = current
+            while node != start_node:
+                path.append(node)
+                node = predecessor[node]
+            path.append(start_node)
+            path.reverse()
+
+            path_str = '-> '.join(path)
+
+            node= current
+            while node != start_node:
+                parent = predecessor[node]
+                path_cost += int(G[parent][node]['weight'])
+                node = parent
+
+            print(f"> Starting Node: {start_node}")
+            print(f"> Destination Node: {current}")
+            print(f"> Number of nodes created: {nodes_created}")
+            print(f"> pATH: {path_str}")
+            print(f"> Path Cost: {path_cost}")
+            return
+
+        for neighbor in sorted (G.neighbors(current)):
+            if neighbor not in expanded:
+                new_g = g_cost[current] + int(G[current][neighbor]['weight'])
+                if neighbor not in g_cost or new_g < g_cost[neighbor]:
+                    g_cost[neighbor] = new_g
+                    parent[neighbor] = current
+                    h = G.nodes[neighbor]["heuristic"]
+                    f = new_g + h
+                    frontier.append((f, neighbor))
+                    predecessor[neighbor] = current
+
+    print("No solution found")
+    # return
 
 
 def GreedyBFS():
@@ -217,6 +298,6 @@ elif method_name == "DFS":
 elif method_name == "GreedyBFS":
     GreedyBFS()
     
-elif method_name == "A_StarSearch":
+elif method_name == "AS":
     A_StarSearch()
-    show_plot()
+
