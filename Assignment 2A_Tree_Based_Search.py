@@ -230,9 +230,6 @@ def GreedyBFS():
             plt.show() 
             nodes_created = len(frontier) + len(expanded) 
 
-
-           
-
             path = []
             node = goal
 
@@ -262,13 +259,20 @@ def GreedyBFS():
             print(f"Path: {path_str}") 
             print(f"Path Cost: {path_cost}") 
             return
-            
+        
+
 
         # expand neighbors
         for n in G.neighbors(current):
             if n not in expanded and n not in frontier:
                 frontier.append(n) 
                 predecessor[n] = current 
+        
+        if len(frontier) == 0:
+            print("Not Found")
+            plt.ioff() 
+            plt.show() 
+            return
     return
 
 
