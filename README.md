@@ -1,5 +1,9 @@
 # Assignment 2A_Tree Based Search
 
+# Graph for Assignment 2A_Tree Based Search so far
+<img width="7474" height="5240" alt="Graph Search Algorithms-2026-05-01-151447" src="https://github.com/user-attachments/assets/9d3c04be-31fa-4da0-9884-263ff6cd6995" />
+
+
 ## Python parser code (Test)
 Since the lecturer wants us to execute the file by command prompt 
 C:\Assignments> python <file.python> <filename> <method> 
