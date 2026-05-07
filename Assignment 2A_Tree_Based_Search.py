@@ -100,7 +100,7 @@ def DFS():
     predecessor = {}
     path_cost = 0
 
-    frontier = [start_node]  # Stack (LIFO) — use .pop() to remove
+    frontier = [start_node]
     expanded = []
 
     while frontier:
@@ -152,8 +152,6 @@ def DFS():
             print(f"Path Cost: {path_cost}")
             return
 
-        # Expand neighbours — sorted ascending then reversed before push
-        # because stack is LIFO, reversed ensures smallest node pops first
         for neighbor in sorted(G.neighbors(current), reverse=True):
             if neighbor not in expanded and neighbor not in frontier:
                 frontier.append(neighbor)
