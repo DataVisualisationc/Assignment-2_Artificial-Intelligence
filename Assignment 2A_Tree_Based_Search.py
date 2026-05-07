@@ -97,7 +97,70 @@ def BFS():
 # DFS
 
 def DFS():
-    return
+    predecessor = {}
+    path_cost = 0
+
+    frontier = [start_node]  # Stack (LIFO) — use .pop() to remove
+    expanded = []
+
+    while frontier:
+        # Pop from top of stack (LIFO = DFS behaviour)
+        current = frontier.pop()
+
+        if current in expanded:
+            continue
+        expanded.append(current)
+
+        # Update node colours for visualisation
+        node_list = list(G.nodes())
+        for n in frontier:
+            idx = node_list.index(n)
+            node_colors[idx] = "grey"       # in frontier
+        for n in expanded:
+            idx = node_list.index(n)
+            if n in goals:
+                node_colors[idx] = "orange" # goal found
+            else:
+                node_colors[idx] = "red"    # expanded
+
+        # Goal check
+        if current in goals:
+            nodes_created = len(frontier) + len(expanded)
+
+            # Reconstruct path by backtracking through predecessor
+            path = []
+            node = current
+            while node != start_node:
+                path.append(node)
+                node = predecessor[node]
+            path.append(start_node)
+            path.reverse()
+
+            path_str = " -> ".join(path)
+
+            # Calculate path cost
+            node = current
+            while node != start_node:
+                parent = predecessor[node]
+                path_cost += int(G[parent][node]['weight'])
+                node = parent
+
+            print(f"Starting Node: {start_node}")
+            print(f"Destination Node: {current}")
+            print(f"Number of nodes created: {nodes_created}")
+            print(f"Path: {path_str}")
+            print(f"Path Cost: {path_cost}")
+            return
+
+        # Expand neighbours — sorted ascending then reversed before push
+        # because stack is LIFO, reversed ensures smallest node pops first
+        for neighbor in sorted(G.neighbors(current), reverse=True):
+            if neighbor not in expanded and neighbor not in frontier:
+                frontier.append(neighbor)
+                predecessor[neighbor] = current
+
+    print("No solution found.")
+    # return
 
 # A* Search
 
