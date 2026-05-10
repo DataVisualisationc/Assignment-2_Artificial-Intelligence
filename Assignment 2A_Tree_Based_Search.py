@@ -72,6 +72,7 @@ for line in cleaned_lines:
     else:
         start_node = line
 
+#labeling with color for the nodes
 for node in G.nodes():
     if goal == node:
         node_colors.append("green")
@@ -97,6 +98,7 @@ def BFS():
 # DFS
 
 def DFS():
+    plt.ion()
     predecessor = {}
     path_cost = 0
 
@@ -122,10 +124,14 @@ def DFS():
                 node_colors[idx] = "orange" # goal found
             else:
                 node_colors[idx] = "red"    # expanded
+        show_plot()
 
         # Goal check
         if current in goals:
             nodes_created = len(frontier) + len(expanded)
+
+            plt.ioff() #interactive off then show screen, so it doesnt shutdown
+            plt.show() 
 
             # Reconstruct path by backtracking through predecessor
             path = []
@@ -163,6 +169,14 @@ def DFS():
 # A* Search
 
 def A_StarSearch():
+    #since a star search has 2 goals, then i added another green
+    node_list = list(G.nodes())
+
+    for goal_node in goals:
+        idx = node_list.index(goal_node)
+        node_colors[idx] = "green"
+
+
     predecessor = {} 
     path_cost = 0
     plt.ion() 
@@ -191,7 +205,7 @@ def A_StarSearch():
 
         node_list = list(G.nodes())
 
-        for n, _ in frontier:
+        for _, n in frontier:
             idx = node_list.index(n)
             node_colors[idx] = "grey"
 
@@ -237,11 +251,10 @@ def A_StarSearch():
                 new_g = g_cost[current] + int(G[current][neighbor]['weight'])
                 if neighbor not in g_cost or new_g < g_cost[neighbor]:
                     g_cost[neighbor] = new_g
-                    parent[neighbor] = current
+                    predecessor[neighbor] = current
                     h = G.nodes[neighbor]["heuristic"]
                     f = new_g + h
                     frontier.append((f, neighbor))
-                    predecessor[neighbor] = current
 
     print("No solution found")
     # return
@@ -336,6 +349,8 @@ def GreedyBFS():
             if n not in expanded and n not in frontier:
                 frontier.append(n) 
                 predecessor[n] = current 
+
+    print("No solution found")
     return
 
 
@@ -359,9 +374,10 @@ if method_name == "show":
 elif method_name == "BFS":
     BFS()
     show_plot()
+
 elif method_name == "DFS":
     DFS()
-    show_plot()
+    
 elif method_name == "GreedyBFS":
     GreedyBFS()
     
