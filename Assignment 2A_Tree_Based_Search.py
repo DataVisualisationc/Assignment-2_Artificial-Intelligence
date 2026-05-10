@@ -526,7 +526,7 @@ elif method_name == "GreedyBFS":
     
 elif method_name == "AS":
     A_StarSearch()
-elif method_name == "IDFS":
+elif method_name == "IDDFS":
     IDDFS()
 
 
