@@ -354,6 +354,137 @@ def GreedyBFS():
     return
 
 
+#This is for IDDFS
+def depth_limited_search(node, depth_limit, visited_order, visited, counter, predecessor):
+
+    if depth_limit < 0:
+        return None
+
+    visited.add(node)
+    visited_order.append(node)
+
+    counter.add(node) 
+
+    if node == goal:
+        return goal
+
+    if depth_limit == 0:
+        return None
+
+    for child in G.neighbors(node):
+
+        if child not in visited:
+            predecessor[child] = node
+
+            result = depth_limited_search(
+                child,
+                depth_limit - 1,
+                visited_order,
+                visited,
+                counter,
+                predecessor
+            )
+
+            if result == goal:
+                return goal
+
+    return None
+
+def IDDFS():
+    
+    for limit in range(10):
+        predecessor = {}
+
+
+        visited_order = []
+        visited = set()
+        nodes_created_set = set()
+
+        # fresh colors for EACH iteration so doesnt corrupt our global color
+        local_colors = get_fresh_colors()
+
+        result = depth_limited_search(
+            start_node,
+            limit,
+            visited_order,
+            visited,
+            nodes_created_set,
+            predecessor
+        )
+        nodes_created = len(nodes_created_set)
+
+        #visualize visited nodes for THIS iteration only
+        node_list = list(G.nodes())
+
+        
+
+        for n in visited_order:
+            idx = node_list.index(n)
+            local_colors[idx] = "red"
+
+        print(f"Depth Limit: {limit}")
+        print("Visited:", visited_order)
+
+        # draw using local colors (IMPORTANT)
+        plt.clf()
+        nx.draw(G, pos, with_labels=True, node_color=local_colors)
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+        plt.pause(1)
+
+        
+
+        if result == goal:
+            path = []
+            node = goal
+
+            while node != start_node:
+                path.append(node)
+                node = predecessor[node]
+
+            path.append(start_node)
+            path.reverse()
+
+            path_str = " -> ".join(path)
+
+            path_cost = 0
+
+            for i in range(len(path) - 1):  
+                u = path[i]
+                v = path[i + 1]
+                path_cost += int(G[u][v]['weight'])                                                                                                       
+
+            print("FOUND")
+            print(f"Starting Node:{start_node}")
+            print(f"Destination Node: {goal}")
+            print(f"Number of nodes created: {nodes_created}") 
+            print(f"Path: {path_str}") 
+            print(f"Path Cost: {path_cost}") 
+            
+            plt.ioff()      
+            plt.show()      # keeps window open
+            return
+        
+    print("Goal not found")
+    return
+
+     
+        
+#This function is used to draw iterative graphs rather than using the global variable to draw
+def get_fresh_colors():
+    colors = []
+    for node in G.nodes():
+          
+
+
+        if node == start_node:
+            colors.append("red")
+        elif node in goals:
+            colors.append("green")
+        else:
+            colors.append("blue")
+    return colors
+
+
 #Show drawing
 def show_plot():
     plt.clf()  # clear old frame   
@@ -362,6 +493,18 @@ def show_plot():
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels) # adding labels
     
     plt.pause(0.5)  # pause so we can SEE updates
+
+
+# Added "cencel" key
+def on_key(event):
+    if event.key == 'c':   # press q to quit
+        print("Exiting...")
+        plt.close('all')
+        raise SystemExit
+    
+fig = plt.gcf()
+fig.canvas.mpl_connect('key_press_event', on_key)
+
 
 
 
@@ -383,4 +526,7 @@ elif method_name == "GreedyBFS":
     
 elif method_name == "AS":
     A_StarSearch()
+elif method_name == "IDFS":
+    IDDFS()
+
 
