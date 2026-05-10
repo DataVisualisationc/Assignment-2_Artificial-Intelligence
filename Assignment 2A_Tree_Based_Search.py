@@ -321,7 +321,6 @@ def GreedyBFS():
             while node != start_node: # when node not == start node, loop (we currently at goal node)
                 path.append(node)  #add the node to the path
                 node = predecessor[node] #this node came from where? C? make node equal C, C node came from where? B.....
-
             path.append(start_node)
             path.reverse()
 
