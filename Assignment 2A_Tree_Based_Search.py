@@ -93,6 +93,76 @@ for node in G.nodes():
 # BFS
 
 def BFS():
+    plt.ion()
+    predecessor = {}
+    path_cost = 0
+    
+    # Frontier as a Queue (FIFO)
+    frontier = [start_node]
+    expanded = []
+
+    while frontier:
+        # Pop from the front of the list (FIFO)
+        current = frontier.pop(0)
+
+        if current in expanded:
+            continue
+        expanded.append(current)
+
+        # Update node colors for visualization
+        node_list = list(G.nodes())
+        for n in frontier:
+            idx = node_list.index(n)
+            node_colors[idx] = "grey"       # in frontier
+        for n in expanded:
+            idx = node_list.index(n)
+            if n in goals:
+                node_colors[idx] = "orange" # goal found
+            else:
+                node_colors[idx] = "red"    # expanded
+        show_plot()
+
+        # Goal check: reach one of the destination nodes
+        if current in goals:
+            # Number of nodes created = Expanded + Frontier
+            nodes_created = len(frontier) + len(expanded)
+
+            plt.ioff() 
+            plt.show() 
+
+            # Reconstruct path by backtracking
+            path = []
+            node = current
+            while node != start_node:
+                path.append(node)
+                node = predecessor[node]
+            path.append(start_node)
+            path.reverse()
+
+            path_str = " -> ".join(path)
+
+            # Calculate total path cost
+            node = current
+            while node != start_node:
+                parent = predecessor[node]
+                path_cost += int(G[parent][node]['weight'])
+                node = parent
+
+            # Final Output Block
+            print(f"Starting Node: {start_node}")
+            print(f"Destination Node: {current}")
+            print(f"Number of nodes created: {nodes_created}")
+            print(f"Path: {path_str}")
+            print(f"Path Cost: {path_cost}")
+            return
+
+        # Note 2: Expand nodes in ascending order (smaller to bigger)
+        for neighbor in sorted(G.neighbors(current)):
+            if neighbor not in expanded and neighbor not in frontier:
+                frontier.append(neighbor)
+                predecessor[neighbor] = current
+
+    print("No solution found.")
     return
 
 # DFS
