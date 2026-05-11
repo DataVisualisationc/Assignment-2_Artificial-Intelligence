@@ -585,7 +585,7 @@ if method_name == "show":
 
 elif method_name == "BFS":
     BFS()
-    show_plot()
+    
 
 elif method_name == "DFS":
     DFS()
