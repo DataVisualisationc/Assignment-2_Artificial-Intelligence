@@ -156,7 +156,7 @@ def BFS():
             print(f"Path Cost: {path_cost}")
             return
 
-        # Note 2: Expand nodes in ascending order (smaller to bigger)
+        # Note 2: Expand nodes in ascending order
         for neighbor in sorted(G.neighbors(current)):
             if neighbor not in expanded and neighbor not in frontier:
                 frontier.append(neighbor)
