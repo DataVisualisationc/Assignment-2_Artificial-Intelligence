@@ -1057,8 +1057,88 @@ def IDAS():
             print(f"> Number of nodes created: {nodes_created}")
             print(f"> Path: {path_str}")
             print(f"> Path Cost: {path_cost}")
-            plt.show()
-            return
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(found_path)):
+
+                animated_path.append(found_path[i])
+
+                if i > 0:
+                    animated_edges.append((found_path[i-1], found_path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == found_path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+                
+            plt.ioff()
+            plt.show()  
+            returncd ""
         
         if result == float('inf'):
             print("No solution found")
