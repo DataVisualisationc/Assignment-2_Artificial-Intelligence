@@ -125,10 +125,7 @@ def BFS():
         # Goal check: reach one of the destination nodes
         if current in goals:
             # Number of nodes created = Expanded + Frontier
-            nodes_created = len(frontier) + len(expanded)
-
-            plt.ioff() 
-            plt.show() 
+            nodes_created = len(frontier) + len(expanded) 
 
             # Reconstruct path by backtracking
             path = []
@@ -154,6 +151,95 @@ def BFS():
             print(f"Number of nodes created: {nodes_created}")
             print(f"Path: {path_str}")
             print(f"Path Cost: {path_cost}")
+
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(path)):
+
+                animated_path.append(path[i])
+
+                if i > 0:
+                    animated_edges.append((path[i-1], path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    elif n in expanded:
+                        temp_colors.append("red")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+
+
+            plt.ioff()
+            plt.show()  
+                                                                                  
+                
+
             return
 
         # Note 2: Expand nodes in ascending order
@@ -200,8 +286,6 @@ def DFS():
         if current in goals:
             nodes_created = len(frontier) + len(expanded)
 
-            plt.ioff() #interactive off then show screen, so it doesnt shutdown
-            plt.show() 
 
             # Reconstruct path by backtracking through predecessor
             path = []
@@ -226,6 +310,95 @@ def DFS():
             print(f"Number of nodes created: {nodes_created}")
             print(f"Path: {path_str}")
             print(f"Path Cost: {path_cost}")
+
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(path)):
+
+                animated_path.append(path[i])
+
+                if i > 0:
+                    animated_edges.append((path[i-1], path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    elif n in expanded:
+                        temp_colors.append("red")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+
+
+            plt.ioff()
+            plt.show()  
+                                                                                  
+                
+
             return
 
         for neighbor in sorted(G.neighbors(current), reverse=True):
@@ -289,8 +462,7 @@ def A_StarSearch():
         show_plot()
 
         if current in goals:
-            plt.ioff()
-            plt.show()
+            
             nodes_created = len(frontier) + len (expanded)
 
             path = []
@@ -314,6 +486,95 @@ def A_StarSearch():
             print(f"> Number of nodes created: {nodes_created}")
             print(f"> pATH: {path_str}")
             print(f"> Path Cost: {path_cost}")
+
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(path)):
+
+                animated_path.append(path[i])
+
+                if i > 0:
+                    animated_edges.append((path[i-1], path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    elif n in expanded:
+                        temp_colors.append("red")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+
+
+            plt.ioff()
+            plt.show()  
+                                                                                  
+                
+
             return
 
         for neighbor in sorted (G.neighbors(current)):
@@ -376,8 +637,7 @@ def GreedyBFS():
         show_plot()
 
         if current == goal:
-            plt.ioff() #interactive off then show screen, so it doesnt shutdown
-            plt.show() 
+            
             nodes_created = len(frontier) + len(expanded) 
 
 
@@ -410,6 +670,95 @@ def GreedyBFS():
             print(f"Number of nodes created: {nodes_created}") 
             print(f"Path: {path_str}") 
             print(f"Path Cost: {path_cost}") 
+
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(path)):
+
+                animated_path.append(path[i])
+
+                if i > 0:
+                    animated_edges.append((path[i-1], path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    elif n in expanded:
+                        temp_colors.append("red")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+
+
+            plt.ioff()
+            plt.show()  
+                                                                                  
+                
+
             return
             
 
@@ -528,9 +877,92 @@ def IDDFS():
             print(f"Number of nodes created: {nodes_created}") 
             print(f"Path: {path_str}") 
             print(f"Path Cost: {path_cost}") 
+            animated_path = []
+            animated_edges = []
+
+            for i in range(len(path)):
+
+                animated_path.append(path[i])
+
+                if i > 0:
+                    animated_edges.append((path[i-1], path[i]))
+
+                temp_colors = []
+
+                edge_set = set(animated_edges)
+
+                edge_colors = [
+                    "green" if e in edge_set else "black"
+                    for e in G.edges()
+                ]
+
+                for n in G.nodes():
+
+                    if n == path[-1]:
+
+                        if n in animated_path:
+                            temp_colors.append("green")
+                        else:
+                            temp_colors.append("orange")
+
+                    elif n in animated_path:
+                        temp_colors.append("green")
+
+                    elif n in visited:
+                        temp_colors.append("red")
+
+                    else:
+                        temp_colors.append("gray")
+
+                edge_colors = []
+
+                for edge in G.edges():
+
+                    if edge in animated_edges:
+                        edge_colors.append("green")
+                    else:
+                        edge_colors.append("black")
+
+                plt.clf()
+
+                # 1. draw nodes
+                nx.draw_networkx_nodes(G, pos, node_color=temp_colors)
+                
+
+                # 2. draw ALL edges (background layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    width=2
+                )
+
+                # 3. draw ONLY animated edges (foreground layer)
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=list(edge_set),
+                    edge_color="green",
+                    width=4
+                )
+
+                # 4. labels
+                nx.draw_networkx_labels(G, pos)
+                nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+
+                plt.pause(0.5)
+                plt.text(
+            0.05, 1.12,
+            f"Path: {path_str}",
+            transform=plt.gca().transAxes,
+            fontsize=10,
+            verticalalignment='top',
+            bbox=dict(facecolor='white')
+            )   
+
+
+            plt.ioff()
+            plt.show()  
             
-            plt.ioff()      
-            plt.show()      # keeps window open
             return
         
     print("Goal not found")
