@@ -1138,7 +1138,7 @@ def IDAS():
                 
             plt.ioff()
             plt.show()  
-            returncd ""
+            return
         
         if result == float('inf'):
             print("No solution found")
