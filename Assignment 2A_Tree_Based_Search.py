@@ -90,6 +90,7 @@ for node in G.nodes():
 # print(f"Path Cost: {path_cost}")
 
 
+
 # BFS
 
 def BFS():
@@ -589,8 +590,6 @@ def A_StarSearch():
 
     print("No solution found")
     # return
-
-# Greedy Best-First Search
 
 def GreedyBFS():
     predecessor = {} #storing predecessor nodes so can access later
