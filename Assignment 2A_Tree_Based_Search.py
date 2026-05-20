@@ -1141,6 +1141,14 @@ def IDAS():
         
         if result == float('inf'):
             print("No solution found")
+            plt.ioff()
+            plt.close('all')
+            return
+
+        if threshold == result:
+            print("No solution found")
+            plt.ioff()
+            plt.close('all')
             return
         
         threshold = result    
