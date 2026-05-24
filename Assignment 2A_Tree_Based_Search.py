@@ -487,7 +487,7 @@ def A_StarSearch():
             print(f"> Starting Node: {start_node}")
             print(f"> Destination Node: {current}")
             print(f"> Number of nodes created: {nodes_created}")
-            print(f"> pATH: {path_str}")
+            print(f"> Path: {path_str}")
             print(f"> Path Cost: {path_cost}")
 
             animated_path = []
