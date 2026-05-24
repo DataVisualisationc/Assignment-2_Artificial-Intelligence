@@ -988,6 +988,9 @@ def IDAS():
                 min_dist = dist
         G.nodes[node]["heuristic"] = min_dist
 
+    nodes_created = 0 
+
+    
     def search(path, g_cost, threshold):
         current = path[-1]
         f_cost = g_cost + G.nodes[current]["heuristic"]
@@ -1036,9 +1039,10 @@ def IDAS():
     plt.ion()
     threshold = G.nodes[start_node]["heuristic"]
     path = [start_node]
-    nodes_created = 1
+    
 
     while True:
+        nodes_created = 0
         result, found_path = search(path, 0, threshold)
 
         if found_path is not None:
