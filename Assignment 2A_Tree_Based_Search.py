@@ -97,6 +97,8 @@ for node in G.nodes():
 # BFS
 
 def BFS():
+    # ── Execution timer starts when search begins ─────────────────────────
+    bfs_exec_start = time.perf_counter()
     plt.ion()
     predecessor = {}
     path_cost = 0
@@ -128,9 +130,6 @@ def BFS():
 
         # Goal check: reach one of the destination nodes
         if current in goals:
-            # ── Execution timer starts the moment goal is found ──────────────
-            bfs_exec_start = time.perf_counter()
-
             # Number of nodes created = Expanded + Frontier
             nodes_created = len(frontier) + len(expanded) 
 
@@ -245,7 +244,7 @@ def BFS():
             # ── Execution timer ends once replay animation is complete ────────
             bfs_exec_end = time.perf_counter()
             bfs_exec_duration = bfs_exec_end - bfs_exec_start
-            print(f"[BFS] Replay Execution Time: {bfs_exec_duration:.4f} seconds")
+            print(f"[BFS] Execution Time: {bfs_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()  
@@ -266,6 +265,8 @@ def BFS():
 # DFS
 
 def DFS():
+    # ── Execution timer starts when search begins ─────────────────────────
+    dfs_exec_start = time.perf_counter()
     plt.ion()
     predecessor = {}
     path_cost = 0
@@ -296,9 +297,6 @@ def DFS():
 
         # Goal check
         if current in goals:
-            # ── Execution timer starts the moment goal is found ──────────────
-            dfs_exec_start = time.perf_counter()
-
             nodes_created = len(frontier) + len(expanded)
 
 
@@ -412,7 +410,7 @@ def DFS():
             # ── Execution timer ends once replay animation is complete ────────
             dfs_exec_end = time.perf_counter()
             dfs_exec_duration = dfs_exec_end - dfs_exec_start
-            print(f"[DFS] Replay Execution Time: {dfs_exec_duration:.4f} seconds")
+            print(f"[DFS] Execution Time: {dfs_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()  
@@ -432,6 +430,8 @@ def DFS():
 # A* Search
 
 def A_StarSearch():
+    # ── Execution timer starts when search begins ─────────────────────────
+    astar_exec_start = time.perf_counter()
     #since a star search has 2 goals, then i added another green
     node_list = list(G.nodes())
 
@@ -482,9 +482,6 @@ def A_StarSearch():
         show_plot()
 
         if current in goals:
-            # ── Execution timer starts the moment goal is found ──────────────
-            astar_exec_start = time.perf_counter()
-            
             nodes_created = len(frontier) + len (expanded)
 
             path = []
@@ -595,7 +592,7 @@ def A_StarSearch():
             # ── Execution timer ends once replay animation is complete ────────
             astar_exec_end = time.perf_counter()
             astar_exec_duration = astar_exec_end - astar_exec_start
-            print(f"[A*] Replay Execution Time: {astar_exec_duration:.4f} seconds")
+            print(f"[A*] Execution Time: {astar_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()  
@@ -618,6 +615,8 @@ def A_StarSearch():
     # return
 
 def GreedyBFS():
+    # ── Execution timer starts when search begins ─────────────────────────
+    gbfs_exec_start = time.perf_counter()
     predecessor = {} #storing predecessor nodes so can access later
     path_cost = 0
 
@@ -662,9 +661,6 @@ def GreedyBFS():
         show_plot()
 
         if current == goal:
-            # ── Execution timer starts the moment goal is found ──────────────
-            gbfs_exec_start = time.perf_counter()
-            
             nodes_created = len(frontier) + len(expanded) 
 
 
@@ -784,7 +780,7 @@ def GreedyBFS():
             # ── Execution timer ends once replay animation is complete ────────
             gbfs_exec_end = time.perf_counter()
             gbfs_exec_duration = gbfs_exec_end - gbfs_exec_start
-            print(f"[GreedyBFS] Replay Execution Time: {gbfs_exec_duration:.4f} seconds")
+            print(f"[GreedyBFS] Execution Time: {gbfs_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()  
@@ -841,6 +837,8 @@ def depth_limited_search(node, depth_limit, visited_order, visited, counter, pre
     return None
 
 def IDDFS():
+    # ── Execution timer starts when search begins ─────────────────────────
+    iddfs_exec_start = time.perf_counter()
     
     for limit in range(10):
         predecessor = {}
@@ -884,9 +882,6 @@ def IDDFS():
         
 
         if result == goal:
-            # ── Execution timer starts the moment goal is found ──────────────
-            iddfs_exec_start = time.perf_counter()
-
             path = []
             node = goal
 
@@ -998,7 +993,7 @@ def IDDFS():
             # ── Execution timer ends once replay animation is complete ────────
             iddfs_exec_end = time.perf_counter()
             iddfs_exec_duration = iddfs_exec_end - iddfs_exec_start
-            print(f"[IDDFS] Replay Execution Time: {iddfs_exec_duration:.4f} seconds")
+            print(f"[IDDFS] Execution Time: {iddfs_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()  
@@ -1011,6 +1006,8 @@ def IDDFS():
     #IDA*
 
 def IDAS():
+    # ── Execution timer starts when search begins ─────────────────────────
+    idas_exec_start = time.perf_counter()
     node_list = list(G.nodes())
     for goal_node in goals:
         idx = node_list.index(goal_node)
@@ -1085,9 +1082,6 @@ def IDAS():
         result, found_path = search(path, 0, threshold)
 
         if found_path is not None:
-            # ── Execution timer starts the moment goal is found ──────────────
-            idas_exec_start = time.perf_counter()
-
             plt.ioff()
 
             path_cost = 0 # calculates the path cost of the path that is found
@@ -1184,7 +1178,7 @@ def IDAS():
             # ── Execution timer ends once replay animation is complete ────────
             idas_exec_end = time.perf_counter()
             idas_exec_duration = idas_exec_end - idas_exec_start
-            print(f"[IDA*] Replay Execution Time: {idas_exec_duration:.4f} seconds")
+            print(f"[IDA*] Execution Time: {idas_exec_duration:.4f} seconds")
 
             plt.ioff()
             plt.show()
